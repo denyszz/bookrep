@@ -1,0 +1,84 @@
+{% extends "base.html" %} 
+
+{% block title %}   
+  Home Page 
+{% endblock %} 
+
+{% block content %}
+  <style>
+    .table {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .table thead th {
+      background-color: #36304A;
+      color: rgb(235, 235, 235);
+      border-bottom: none;
+    }
+    
+    .table td, .table th {
+      border: none;
+    }
+
+    .search-form {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      justify-content: flex-end;
+    }
+
+    .search-input {
+      border-radius: 20px;
+      border: none;
+      padding: 8px;
+      width: 300px;
+      background-color: #f6f4ff; 
+      color: #000000; 
+      margin-right: 5px;
+    }
+
+    .search-btn {
+      border-radius: 16px;
+      background-color: #36304A; 
+      color: #fff; 
+      border: none;
+      padding: 6px 15px;
+      cursor: pointer;
+    }
+
+    .search-btn:hover {
+      background-color: #211d2e; 
+      color: #fff; 
+    }
+  </style>
+
+  <form method="GET" class="search-form">
+    <input type="text" class="form-control search-input" name="q" placeholder="Search by title or author">
+    <button type="submit" class="btn search-btn">Search</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Publish Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in books %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{i.title}}</td>
+          <td>{{i.author_id.name}}</td>
+          <td>{{i.publish_date|date:"d-m-Y"}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

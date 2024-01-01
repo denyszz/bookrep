@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Add Books
+{% endblock %}
+
+{% block content %}
+  <style>
+    .add-book-form {
+      margin-top: 100px;
+      width: 800px;
+      margin-left: auto; 
+      margin-right: auto; 
+    }
+
+    .add-book-input {
+      border-radius: 16px;
+      border: none;
+      padding: 6px;
+      width: 100%; 
+      background-color: #f6f4ff; 
+      color: #000000; 
+      margin-bottom: 10px; 
+    }
+
+    .add-book-select {
+      border-radius: 16px;
+      border: none;
+      padding: 6px;
+      width: 100%; 
+      background-color: #f6f4ff; 
+      color: #000000; 
+      margin-bottom: 10px; 
+    }
+
+    .submit-btn {
+      border-radius: 5px; 
+      background-color: #36304A; 
+      color: #fff; 
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .submit-btn:hover {
+      background-color: #211d2e; 
+      color: #fff; 
+    }
+
+    .message {
+      margin-top: 10px; 
+      text-align: left;
+    }
+  </style>
+
+  <form method="post" class="add-book-form">
+    {% csrf_token %}
+    <div class="row mb-3">
+      <label for="titleInput" class="col-sm-2 col-form-label">Title</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control add-book-input" id="titleInput" name="title" placeholder="Insert title">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="authorInput" class="col-sm-2 col-form-label">Author</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control add-book-input" id="authorInput" name="author" placeholder="Insert author">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="publishDateInput" class="col-sm-2 col-form-label">Publish Date</label>
+      <div class="col-sm-10">
+        <input type="date" class="form-control add-book-input" id="publishDateInput" name="publish_date" placeholder="Publish Date">
+      </div>
+    </div>
+    <div class="row">
+      <label for="stockInput" class="col-sm-2 col-form-label">Stock</label>
+      <div class="col-sm-10">
+        <select class="form-control add-book-select" id="stockInput" name="stock">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn mt-5 submit-btn">Submit Book</button>  
+    {% if post_success == True %}
+      <p class="message text-success">Book added successfully!</p>
+    {% elif post_success == False %}
+      <p class="message text-danger">Failed to add the book. Please try again.</p>
+    {% endif %} 
+  </form>
+{% endblock %}

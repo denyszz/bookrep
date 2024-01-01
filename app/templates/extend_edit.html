@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Edit selected book
+{% endblock %}
+
+{% block content %}
+<style>
+    .add-book-form {
+      margin-top: 100px;
+      width: 800px;
+      margin-left: auto; 
+      margin-right: auto; 
+    }
+
+    .add-book-input {
+      border-radius: 16px;
+      border: none;
+      padding: 6px;
+      width: 100%; 
+      background-color: #f6f4ff; 
+      color: #000000; 
+      margin-bottom: 10px; 
+    }
+
+    .add-book-select {
+      border-radius: 16px;
+      border: none;
+      padding: 6px;
+      width: 100%; 
+      background-color: #f6f4ff; 
+      color: #000000; 
+      margin-bottom: 10px; 
+    }
+     .btn-primary {
+      border-radius: 5px; 
+      background-color: #0089ff; 
+      color: #fff; 
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .btn-primary:hover {
+      background-color: #0070d3; 
+      color: #ffffff;
+      text-decoration: none;
+    }
+    .btn-deleteall {
+      border-radius: 5px; 
+      background-color: #df2222; 
+      color: #fff; 
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .btn-deleteall:hover {
+      background-color: #ce1e1e; 
+      color: #ffffff;
+      text-decoration: none;
+    }
+  </style>
+    <form method="post" class="add-book-form">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <label for="titleInput" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control add-book-input" id="titleInput" name="title" placeholder="Title" value="{{ book.title }}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="authorInput" class="col-sm-2 col-form-label">Author</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control add-book-input" id="authorInput" name="author" placeholder="Author" value="{{ book.author_id.name }}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="publishDateInput" class="col-sm-2 col-form-label">Publish Date</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control add-book-input" id="publishDateInput" name="publish_date" placeholder="Publish Date" value="{{ book.publish_date|date:'Y-m-d' }}">
+            </div>
+        </div>
+        <div class="row">
+            <label for="stockInput" class="col-sm-2 col-form-label">Stock</label>
+            <div class="col-sm-10">
+                <select class="form-control add-book-select" id="stockInput" name="stock">
+                    <option value="yes" {% if book.in_stock %}selected{% endif %}>Yes</option>
+                    <option value="no" {% if not book.in_stock %}selected{% endif %}>No</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn mt-5 btn-primary">Save Changes</button>
+        <a href="{% url 'delete_book' %}?authorid={{ book.author_id.id }}" class="btn mt-5 btn-deleteall" onclick="return confirmDelete();">Delete Author Books</a>
+    </form>
+    <script>
+        function confirmDelete() {
+          return confirm("Are you sure you want to delete all books from this author?");
+        }
+      </script>
+{% endblock %}
