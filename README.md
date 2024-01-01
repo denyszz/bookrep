@@ -1,2 +1,2 @@
 # bookrep
-Book management system with Django
+Book management system with Django.
