@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from .models import Book, Author
 from django.db.models import Q
 
-# Create your views here.
+# Create your views here (test).
 
 def home(request): 
     # Retrieve the 'q' parameter from the request
